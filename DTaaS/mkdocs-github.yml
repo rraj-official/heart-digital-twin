@@ -1,0 +1,156 @@
+site_name: Digital Twin as a Service (DTaaS)
+
+repo_url: https://github.com/into-cps-association/DTaaS
+repo_name: DTaaS
+copyright: Copyright &copy; 2022 - 2024 The INTO-CPS Association
+
+theme: 
+  name: material
+  locale: en
+  logo: assets/dtaas-logo.png
+  favicon: assets/dtaas-logo.png
+  features:
+    - navigation.tabs
+    - navigation.tracking
+    - navigation.footer
+
+nav:
+  - Home: index.md
+  - User:
+      - Motivation: user/motivation.md
+      - Features: user/features.md
+      - Website: user/website/index.md
+      - Reusable Assets: 
+          - Concept: user/servers/lib/assets.md
+          - Microservice: user/servers/lib/LIB-MS.md
+      - Digital Twins:
+          - Create: user/digital-twins/create.md
+          - Lifecycle: user/digital-twins/lifecycle.md
+          - DevOps Preview:
+              - Digital Twin Structure: user/digital-twins/devops/file-structure.md
+              - User Interface: user/digital-twins/devops/ui.md
+      - Gitlab Tutorial: user/gitlab/tutorial.md
+      - Runner: user/servers/execution/runner/README.md
+      - Examples:
+          - Overview: user/examples/index.md
+          - Mass Spring Damper: user/examples/mass-spring-damper/README.md
+          - Water Tank Fault Injection: user/examples/water_tank_FI/README.md
+          - Water Tank Model Swap: user/examples/water_tank_swap/README.md
+          - Desktop Robotti and RabbitMQ: user/examples/drobotti-rmqfmu/README.md
+          - Water Plant and OPC-UA: user/examples/opc-ua-waterplant/README.md
+          - Three Water Tanks: user/examples/three-tank/README.md
+          - Flex Cell: user/examples/flex-cell/README.md
+          - Incubator: user/examples/incubator/README.md
+          - Firefighters: user/examples/o5g/README.md
+          - Mass Spring Damper with NuRV: user/examples/mass-spring-damper-monitor/README.md
+          - Water Tank Fault Injection with NuRV: user/examples/water_tank_FI_monitor/README.md
+          - Incubator Co-Sim with NuRV: user/examples/incubator-NuRV-monitor-validation/README.md
+          - Incubator with NuRV Service: user/examples/incubator-NuRV-monitor-service/README.md
+          - Incubator with NuRV FMU Service: user/examples/incubator-NuRV-fmu-monitor-service/README.md
+          - Codebase: https://github.com/INTO-CPS-Association/DTaaS-examples
+  - Admin:
+      - Install:
+        - Installation Scenarios: admin/overview.md
+        - Installation Steps: admin/steps.md
+        - Requirements: admin/requirements.md
+        - Authorization:
+          - Client: admin/client/auth.md
+          - Servers: admin/servers/auth.md
+        - Configuration:
+          - Client: admin/client/config.md
+          - Library: admin/servers/lib/config.md
+        - Docker:
+          - Localhost: admin/localhost.md
+          - Secure Localhost: admin/localhost-secure.md
+          - Production: admin/host.md
+        - Vagrant:
+          - Base Box: admin/vagrant/base-box.md
+          - Single Machine: admin/vagrant/single-machine.md
+          - Two Machines: admin/vagrant/two-machines.md
+        - Services: admin/services.md
+      - Integrated Gitlab:
+        - Installation: admin/gitlab/index.md
+        - Integration: admin/gitlab/integration.md
+        - Gitlab Runner: admin/gitlab/runner.md
+      - CLI: admin/cli.md
+      - Independent Packages:
+        - Listing: admin/packages.md
+        - Library Microservice:
+          - NPM: admin/servers/lib/npm.md
+          - Docker: admin/servers/lib/docker.md
+      - Guides:
+        - GUI Installation: admin/guides/localhost_portainer.md
+        - Add user: admin/guides/add_user.md
+        - Remove user: admin/guides/remove_user.md
+        - Add Service: admin/guides/add_service.md
+        - Link services: admin/guides/link_service.md
+        - Common Assets: admin/guides/common_workspace_readonly.md
+  - FAQ: FAQ.md
+  - Developer:
+      - Developer Guide: developer/index.md
+      - Code of Conduct: developer/conduct.md
+      - GitHub Actions: developer/github-actions.md
+      - System:
+        - Architecture: developer/system/architecture.md
+        - Current Status: developer/system/current-status.md
+      - OAuth2 Authorization:
+        - Concepts: developer/oauth/OAUTH2.0.md
+        - System Design: developer/oauth/DESIGN.md
+        - Microservice: developer/oauth/AUTHMS.md
+      - Testing: developer/testing/intro.md
+      - Docker: developer/docker/docker.md
+      - NPM Packages: developer/npm-packages.md
+      - DevOps Framework:
+        - Overview: developer/devops/overview.md
+        - GitLab CI/CD Infrastructure: developer/devops/gitlab-ci-cd.md
+        - Triggering Pipelines via API: developer/devops/api.md
+        - Implemented Classes: developer/devops/implementation.md
+  - Bugs: bugs.md
+  - Thanks: thanks.md
+  - License: 
+      - DTaaS: LICENSE.md
+      - Third Party: third-party.md 
+
+use_directory_urls: false
+
+extra_css:
+  - assets/css/extra.css
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      linenums: true
+      use_pygments: true
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets      
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details
+  - admonition
+  - pymdownx.tabbed:
+      alternate_style: true   
+  - mdx_math:
+      enable_dollar_delimiter: True
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - open-in-new-tab
+  - search

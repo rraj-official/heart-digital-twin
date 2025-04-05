@@ -1,0 +1,27 @@
+comment:
+  layout: "header, diff, files, components"  # show component info in the PR comment
+  
+coverage:
+  status:
+    project:
+      default:
+        target: 90%
+        threshold: 20%
+    patch:
+      default:
+        informational: true
+codecov:
+  require_ci_to_pass: false
+  notify:
+    wait_for_ci: false
+
+component_management:
+  individual_components:
+    - component_id: client_website  # this is an identifier that should not be changed
+      name: Website  # this is a display name, and can be changed freely
+      paths:
+        - client/**
+    - component_id: lib_ms  # this is an identifier that should not be changed
+      name: Lib Microservice  # this is a display name, and can be changed freely
+      paths:
+        - servers/lib/**

@@ -1,0 +1,86 @@
+# Reusable workflow for building and pushing a Docker Image to GHCR.
+# 
+# Username is the repository owner converted to lowercase
+# Password is taken from the auto-generated GitHub token
+
+name: Build and Push Docker Image (GHCR)
+
+on:
+  workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+        default: "latest"
+      dockerfile:
+        required: true
+        type: string
+
+env:
+  registry: ghcr.io
+  password: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup node for building the React client website
+        if: ${{ inputs.image-name == 'dtaas-web' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: "**/yarn.lock"
+
+      - name: Build react client website
+        if: ${{ inputs.image-name == 'dtaas-web' }}
+        run: |
+          cd client/
+          yarn install --network-timeout 1000000
+          yarn build
+
+      # Sets a new environment variable that can be accessed in later
+      # steps via ${{ env.ghcr-scope }}
+      - name: Get repository owner in lower-case
+        run: |
+          echo "ghcr-scope=${REPOSITORY_OWNER,,}" >> $GITHUB_ENV
+        env:
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.registry }}
+          username: ${{ github.actor }}
+          password: ${{ env.password }}
+
+      - name: Check if version exists
+        id: check_version
+        run: |
+          if docker manifest inspect ${{ env.registry }}/${{ env.ghcr-scope }}/${{ inputs.image-name }}:${{ inputs.version }} > /dev/null 2>&1; then
+            echo "Version ${{ inputs.version }} already exists."
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "Version ${{ inputs.version }} does not exist."
+            echo "exists=false" >> $GITHUB_ENV
+          fi
+
+      - name: Build and push Docker image
+        if: env.exists == 'false'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./docker/${{ inputs.dockerfile }}
+          push: true
+          tags: ${{ env.registry }}/${{ env.ghcr-scope }}/${{ inputs.image-name }}:${{ inputs.version }}, ${{ env.registry }}/${{ env.ghcr-scope }}/${{ inputs.image-name }}:latest

@@ -1,0 +1,30 @@
+name: Build documentation
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  docs:
+    name: Build html docs only
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: build docs
+        uses: Tiryoh/actions-mkdocs@v0
+        with:
+          mkdocs_version: 'latest'
+          requirements: 'docs/requirements-github.txt'
+          configfile: 'mkdocs-github.yml'
+
+
+      - name: show contents of compiled docs
+        run: |
+          ls -R site
