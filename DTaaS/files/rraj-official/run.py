@@ -22,4 +22,20 @@ from digital_twins.app import main
 
 if __name__ == "__main__":
     print("Starting Heart Digital Twin Application...")
-    main() 
+    # For Render.com compatibility - override the main function to use environment variables
+    from digital_twins.app import app, init_ecg_data, register_routes
+    
+    # Initialize ECG data
+    if not init_ecg_data(record_name='100', window_seconds=5):
+        print("Failed to initialize ECG data. Exiting.")
+        sys.exit(1)
+    
+    # Register all routes
+    register_routes(app)
+    
+    # Get port from environment variable (Render sets PORT env var)
+    port = int(os.environ.get("PORT", 5000))
+    
+    # Run the app
+    print(f"Starting Flask server on port {port}...")
+    app.run(host='0.0.0.0', port=port, debug=False, threaded=True) 

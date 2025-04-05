@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: heart-digital-twin
+    env: python
+    repo: https://github.com/rraj-official/heart-digital-twin.git  # Replace with your actual repo
+    buildCommand: pip install -r digital_twins/requirements.txt
+    startCommand: python3 run.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+    healthCheckPath: /
+    healthCheckTimeout: 5 
