@@ -14,11 +14,13 @@ Built on the INTO-CPS DTaaS platform, this application showcases how digital twi
 
 ## Screenshot
 
-![Heart Digital Twin Screenshot](placeholder-for-screenshot.png)
+![Heart Digital Twin Screenshot](/DTaaS/screenshot.png)
 
 ## Hosted Demo
 
-You can access a hosted demo of this application at: [https://example.com/heart-digital-twin](https://example.com/heart-digital-twin)
+You can access a hosted demo of this application at: [Link](https://heart-digital-twin-deployed.onrender.com)
+
+Note: We are using a free deployment service so it might take 10-15 seconds to load the heart model.
 
 ## Running the Application
 
